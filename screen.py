@@ -42,6 +42,11 @@ class Screen(Tk):
                                       bg="black", relief="ridge", fg="white")
         self.check_button.place(x=-22, y=0)
 
+        self.scale = Scale(self.content_frame, from_=2, to=12, length=200, tickinterval=1, orient=HORIZONTAL,
+                           bg="black",fg="white")
+        self.scale.set(CONVERT_SIZE)
+        self.scale.place(x=WINDOW_WIDTH-200, y=0)
+
         self.after(1, self._draw)
 
     def _draw(self) -> None:
@@ -50,7 +55,7 @@ class Screen(Tk):
         start_time = time.time()
 
         invert = self.invert_choice.get()
-        text = convert_screenshot_to_ascii(CONVERT_SIZE, invert)
+        text = convert_screenshot_to_ascii(self.scale.get(), invert)
         self.content.config(text=text)
         took = time.time() - start_time
         self.fps_label.config(text=f"FPS: {round(1/took)}")
