@@ -9,7 +9,7 @@ from screenshot_to_ascii import convert_screenshot_to_ascii
 FONT_NAME = "Consolas"
 
 # WINDOW_WIDTH, WINDOW_HEIGHT = 960, 540
-WINDOW_WIDTH, WINDOW_HEIGHT = 1024, 576
+WINDOW_WIDTH, WINDOW_HEIGHT = 920, 620
 
 class Screen(Tk):
 
@@ -20,19 +20,17 @@ class Screen(Tk):
         self.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{10}+{10}")
         self.resizable(False, False)
 
-        self.text = ""
-        for y in range(42):
-            for x in range(159):
-                self.text += "X"
-            self.text += "\n"
-
         # frame used to set content size with pixels
         self.content_frame = Frame(self, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, bg="black")
         self.content_frame.pack()
 
         self.content = Label(self.content_frame, bg="black", fg="white",
-                             text="Characterized", font=("Consolas", 2))
-        self.content.place(x=0, y=2, width=WINDOW_WIDTH, height=WINDOW_HEIGHT+10)
+                             text="SCREEN TO ASCII", font=("Consolas", 2))
+        self.content.place(x=0, y=0, width=WINDOW_WIDTH, height=WINDOW_HEIGHT)
+
+        self.fps_label = Label(self.content_frame, bg="black", fg="white",
+                             text="FPS: ___", font=("Consolas", 12))
+        self.fps_label.place(x=0, y=0)
 
         self.after(1, self._draw)
 
@@ -44,7 +42,6 @@ class Screen(Tk):
         text = convert_screenshot_to_ascii()
         self.content.config(text=text)
         took = time.time() - start_time
-        print(took)
-        print(1/took)
+        self.fps_label.config(text=f"FPS: {round(1/took)}")
 
         self.after(1, self._draw)
