@@ -9,7 +9,8 @@ from screenshot_to_ascii import convert_screenshot_to_ascii
 FONT_NAME = "Consolas"
 
 # WINDOW_WIDTH, WINDOW_HEIGHT = 960, 540
-WINDOW_WIDTH, WINDOW_HEIGHT = 920, 620
+# WINDOW_WIDTH, WINDOW_HEIGHT, CONVERT_SIZE = 920, 620, 7
+WINDOW_WIDTH, WINDOW_HEIGHT, CONVERT_SIZE = 1075, 728, 6
 
 class Screen(Tk):
 
@@ -39,7 +40,7 @@ class Screen(Tk):
 
         start_time = time.time()
 
-        text = convert_screenshot_to_ascii()
+        text = convert_screenshot_to_ascii(CONVERT_SIZE)
         self.content.config(text=text)
         took = time.time() - start_time
         self.fps_label.config(text=f"FPS: {round(1/took)}")

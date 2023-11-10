@@ -7,8 +7,7 @@ def _get_screenshot() -> Image:
     return ss
 
 
-def convert_screenshot_to_ascii() -> str:
+def convert_screenshot_to_ascii(font_size) -> str:
     screenshot = _get_screenshot()
-    text = convert_image_to_text(screenshot, 7, inverted=False)
-    print(len(text.split("\n")[0]))
+    text = convert_image_to_text(screenshot, font_size, inverted=False)
     return text
